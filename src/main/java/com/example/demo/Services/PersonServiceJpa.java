@@ -13,8 +13,6 @@ import java.util.Optional;
 
 @Service
 public class PersonServiceJpa {
-
-
     private PersonRepository repository;
 
     public PersonServiceJpa(PersonRepository repository) {
@@ -28,7 +26,6 @@ public class PersonServiceJpa {
     public Optional<Employee> getPerson(Long id) {
         Optional<Employee> person =  repository.findById(id);
         return person;
-
     }
 
     public Employee verifylogin(Map<Object, Object> loginData){
@@ -39,15 +36,8 @@ public class PersonServiceJpa {
         return null;
     }
 
-
-
     public void addPerson(Employee person) {
-
         Employee savedCourse = repository.save(person);
-
-        System.out.print("HELLO WORLD");
-
-
     }
 
 }

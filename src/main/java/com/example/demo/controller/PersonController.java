@@ -13,19 +13,12 @@ import java.util.Optional;
 @CrossOrigin
 public class PersonController {
 
-
     @Autowired
     private PersonServiceJpa personservicejpa;
 
-    @PostMapping("/home")
-    public Employee my_home(@RequestBody Map<Object, Object> loginData){
-
-
-
+    @PostMapping("/login")
+    public Employee verifyPerson(@RequestBody Map<Object, Object> loginData){
         Employee employee = personservicejpa.verifylogin(loginData);
-        int i = 0;
-        System.out.print("HELLO WORLD");
-        System.out.println(loginData.entrySet());
         return employee;
     }
 
