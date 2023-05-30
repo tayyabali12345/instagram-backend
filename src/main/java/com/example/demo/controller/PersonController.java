@@ -22,6 +22,11 @@ public class PersonController {
         return employee;
     }
 
+    @PostMapping("/signup")
+    public Boolean savedPerson(@RequestBody Map<Object, Object> signupData){
+        return personservicejpa.saveUser(signupData);
+    }
+
     @GetMapping("/persons")
     public List<Employee> getCourses(){
         return this.personservicejpa.getPersons();

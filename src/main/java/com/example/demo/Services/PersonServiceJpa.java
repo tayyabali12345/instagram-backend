@@ -36,6 +36,16 @@ public class PersonServiceJpa {
         return null;
     }
 
+    public Boolean saveUser(Map<Object, Object> signupData){
+        Employee employee = repository.findByName((String) signupData.get("name")).orElse(null);
+        if (employee == null){
+            Employee saveEmployee= new Employee((String) signupData.get("password"), (String) signupData.get("name"));
+            Employee save = repository.save(saveEmployee);
+            return true;
+        }
+        return false;
+    }
+
     public void addPerson(Employee person) {
         Employee savedCourse = repository.save(person);
     }
