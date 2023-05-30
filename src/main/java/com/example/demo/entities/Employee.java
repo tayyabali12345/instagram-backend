@@ -1,18 +1,46 @@
 package com.example.demo.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 @Table(name = "employee")
 @Entity
 public class Employee {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String password;
     private String name;
+    private static final String SECRET_KEY = "YourSecretKey123"; // I'll used dummy key
+
+    private String encrypt(String password) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            SecretKeySpec secretKey = new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), "AES");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            byte[] encryptedBytes = cipher.doFinal(password.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(encryptedBytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String decrypt(String encryptedPassword) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            SecretKeySpec secretKey = new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), "AES");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedPassword));
+            return new String(decryptedBytes, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public Employee(){}
 
@@ -33,7 +61,7 @@ public class Employee {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = encrypt(password);
     }
 
     @Override
@@ -45,12 +73,11 @@ public class Employee {
     }
 
     public String getPassword() {
-        return password;
+        return decrypt(password);
     }
 
-    public Employee(long id, String password, String name) {
-        this.id = id;
-        this.password = password;
+    public Employee( String password, String name) {
+        this.password = encrypt(password);
         this.name = name;
     }
 }
