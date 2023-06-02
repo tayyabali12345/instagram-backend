@@ -1,6 +1,5 @@
 package com.example.demo.config;
 
-
 import com.cloudinary.Cloudinary;
 
 public class CloudinaryConfig {

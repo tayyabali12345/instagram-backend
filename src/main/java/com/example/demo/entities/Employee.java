@@ -17,7 +17,6 @@ public class Employee {
     private String password;
     private String name;
 
-    // One-to-many relationship with Post entity
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
     private static final String SECRET_KEY = "YourSecretKey123"; // I'll used dummy key

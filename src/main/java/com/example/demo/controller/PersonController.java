@@ -14,13 +14,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class
-
-
-
-
-
 PersonController {
-
     @Autowired
     private PersonServiceJpa personservicejpa;
 
@@ -35,16 +29,9 @@ PersonController {
         return personservicejpa.saveUser(signupData);
     }
 
-
-
-
     @PostMapping(value = "/storeImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Post savedImage(@RequestParam MultipartFile file, @RequestParam("user") String userData ){
-
-       Post temp = personservicejpa.saveImage(file, userData);
-       System.out.println(temp);
-       return temp;
-
+       return personservicejpa.saveImage(file, userData);
     }
 
     @GetMapping("/persons")
