@@ -1,11 +1,11 @@
 package com.example.demo.jpa;
+
 import com.example.demo.entities.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.entities.Post;
 
 import java.util.Optional;
 
-public interface PersonRepository extends JpaRepository<Employee, Long> {
-
-    Optional<Employee> findByName(String name);
+public interface PostRepository extends JpaRepository<Post, Long> {
 
 }

@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 @Table(name = "employee")
 @Entity
@@ -14,6 +16,9 @@ public class Employee {
     private long id;
     private String password;
     private String name;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
     private static final String SECRET_KEY = "YourSecretKey123"; // I'll used dummy key
 
     private String encrypt(String password) {
