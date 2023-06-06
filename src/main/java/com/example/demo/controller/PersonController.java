@@ -19,8 +19,8 @@ PersonController {
     private PersonServiceJpa personservicejpa;
 
     @PostMapping("/login")
-    public Employee verifyPerson(@RequestBody Map<Object, Object> loginData){
-        Employee employee = personservicejpa.verifylogin(loginData);
+    public Employee verifyPerson(@RequestParam("username") String username, @RequestParam("password") String password  ){
+        Employee employee = personservicejpa.verifylogin(username, password);
         return employee;
     }
 

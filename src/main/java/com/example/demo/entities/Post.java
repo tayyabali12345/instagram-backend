@@ -1,6 +1,8 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "posts")
@@ -56,8 +58,9 @@ public class Post {
     }
 
     // Many-to-one relationship with User entity
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
+    @Fetch(FetchMode.JOIN)
     private Employee employee;
 
     public Post(Long id, String content, String URI,Employee employee) {
