@@ -47,9 +47,9 @@ public class PersonServiceJpa {
         return person;
     }
 
-    public Employee verifylogin(Map<Object, Object> loginData){
-        Employee employee = repository.findByName((String) loginData.get("username")).orElse(null);
-        if (employee.getPassword().equals(loginData.get("password"))){
+    public Employee verifylogin(@RequestParam("username") String username, @RequestParam("password") String password  ){
+        Employee employee = repository.findByName(username).orElse(null);
+        if (employee.getPassword().equals(password)){
             return employee;
         }
         return null;
