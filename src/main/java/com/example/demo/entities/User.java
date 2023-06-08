@@ -8,16 +8,16 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-@Table(name = "employee")
+@Table(name = "user_detail")
 @Entity
-public class Employee {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String password;
     private String name;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
     private static final String SECRET_KEY = "YourSecretKey123"; // I'll used dummy key
 
@@ -45,9 +45,10 @@ public class Employee {
             e.printStackTrace();
         }
         return null;
+
     }
 
-    public Employee(){}
+    public User(){}
 
     public long getId() {
         return id;
@@ -81,7 +82,7 @@ public class Employee {
         return decrypt(password);
     }
 
-    public Employee( String password, String name) {
+    public User( String password, String name) {
         this.password = encrypt(password);
         this.name = name;
     }

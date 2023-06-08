@@ -3,7 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.Services.PersonServiceJpa;
 import com.example.demo.Services.PostServiceJpa;
-import com.example.demo.entities.Employee;
+import com.example.demo.entities.User;
 import com.example.demo.entities.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

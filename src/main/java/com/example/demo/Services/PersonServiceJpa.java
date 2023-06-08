@@ -2,7 +2,7 @@ package com.example.demo.Services;
 
 import com.cloudinary.Cloudinary;
 import com.example.demo.config.CloudinaryConfig;
-import com.example.demo.entities.Employee;
+import com.example.demo.entities.User;
 import com.example.demo.entities.Post;
 import com.example.demo.jpa.PersonRepository;
 import com.example.demo.jpa.PostRepository;
@@ -38,19 +38,19 @@ public class PersonServiceJpa {
         this.repository = repository;
     }
 
-    public List<Employee> getPersons() {
+    public List<User> getPersons() {
         return repository.findAll();
     }
 
-    public Optional<Employee> getPerson(Long id) {
-        Optional<Employee> person =  repository.findById(id);
+    public Optional<User> getPerson(Long id) {
+        Optional<User> person =  repository.findById(id);
         return person;
     }
 
-    public Employee verifylogin(@RequestParam("username") String username, @RequestParam("password") String password  ){
-        Employee employee = repository.findByName(username).orElse(null);
-        if (employee.getPassword().equals(password)){
-            return employee;
+    public User verifylogin(@RequestParam("username") String username, @RequestParam("password") String password  ){
+        User user = repository.findByName(username).orElse(null);
+        if (user.getPassword().equals(password)){
+            return user;
         }
         return null;
     }
@@ -80,13 +80,13 @@ public class PersonServiceJpa {
             } else {
                 System.out.println("File does not exist at the specified location.");
             }
-            Optional<Employee> optionalUser = repository.findById(Long.valueOf(userData));
+            Optional<User> optionalUser = repository.findById(Long.valueOf(userData));
             if (optionalUser.isPresent()) {
-                Employee user = optionalUser.get();
+                User user = optionalUser.get();
 
                 Post post = new Post();
                 post.setContent("This post is about Universal Trend");
-                post.setEmployee(user);
+                post.setUser(user);
                 post.setURI(imageUrl);
                 postRep.save(post);
                 return post;
@@ -101,18 +101,18 @@ public class PersonServiceJpa {
     }
 
     public int saveUser(Map<Object, Object> signupData){
-        Employee employee = repository.findByName((String) signupData.get("name")).orElse(null);
-        if (employee == null){
-            Employee saveEmployee= new Employee((String) signupData.get("password"), (String) signupData.get("name"));
-            Employee save = repository.save(saveEmployee);
+        User user = repository.findByName((String) signupData.get("name")).orElse(null);
+        if (user == null){
+            User saveUser= new User((String) signupData.get("password"), (String) signupData.get("name"));
+            User save = repository.save(saveUser);
             System.out.println(save);
             return (int)save.getId();
         }
         return 0;
     }
 
-    public void addPerson(Employee person) {
-        Employee savedCourse = repository.save(person);
+    public void addPerson(User person) {
+        User savedCourse = repository.save(person);
     }
 
 }

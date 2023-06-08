@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.Services.PersonServiceJpa;
-import com.example.demo.entities.Employee;
+import com.example.demo.entities.User;
 import com.example.demo.entities.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,9 +19,8 @@ PersonController {
     private PersonServiceJpa personservicejpa;
 
     @PostMapping("/login")
-    public Employee verifyPerson(@RequestParam("username") String username, @RequestParam("password") String password  ){
-        Employee employee = personservicejpa.verifylogin(username, password);
-        return employee;
+    public User verifyPerson(@RequestParam("username") String username, @RequestParam("password") String password  ){
+        return personservicejpa.verifylogin(username, password);
     }
 
     @PostMapping("/signup")
@@ -31,21 +30,23 @@ PersonController {
 
     @PostMapping(value = "/storeImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Post savedImage(@RequestParam MultipartFile file, @RequestParam("user") String userData ){
-       return personservicejpa.saveImage(file, userData);
+
+       Post P =personservicejpa.saveImage(file, userData);
+       return P;
     }
 
     @GetMapping("/persons")
-    public List<Employee> getCourses(){
+    public List<User> getCourses(){
         return this.personservicejpa.getPersons();
     }
 
     @GetMapping("/persons/{personid}")
-    public Optional<Employee> getPerson(@PathVariable Long personid){
+    public Optional<User> getPerson(@PathVariable Long personid){
             return this.personservicejpa.getPerson(personid);
     }
 
     @PostMapping("/courses")
-    public void addPerson(@RequestBody Employee person){
+    public void addPerson(@RequestBody User person){
         this.personservicejpa.addPerson(person);
     }
 

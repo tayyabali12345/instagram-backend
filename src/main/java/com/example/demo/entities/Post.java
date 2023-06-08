@@ -33,7 +33,7 @@ public class Post {
         return "Post{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
-                ", employee=" + employee +
+                ", user=" + user +
                 '}';
     }
 
@@ -41,8 +41,8 @@ public class Post {
         this.content = content;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -53,20 +53,20 @@ public class Post {
         return content;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public User getUser() {
+        return user;
     }
 
     // Many-to-one relationship with User entity
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "user_id")
     @Fetch(FetchMode.JOIN)
-    private Employee employee;
+    private User user;
 
-    public Post(Long id, String content, String URI,Employee employee) {
+    public Post(Long id, String content, String URI,User user) {
         this.id = id;
         this.URI = URI;
         this.content = content;
-        this.employee = employee;
+        this.user= user;
     }
 }
