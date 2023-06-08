@@ -1,6 +1,6 @@
 package com.example.demo.jpa;
 
-import com.example.demo.entities.Employee;
+import com.example.demo.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.entities.Post;
 
