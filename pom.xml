@@ -74,7 +74,6 @@
 			<version>6.0.9</version>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
